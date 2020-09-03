@@ -9,15 +9,17 @@
     "client": "webpack-dev-server --mode development --devtool inline-source-map --hot",
     "server": "nodemon src/server/index.js",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "heroku-postbuild": "npm install && npm run build"
+    "heroku-postbuild": "npm install && npm run build",
+    "production":"npm run build && npm start"
   },
   "author": "Amal Salvin",
   "license": "ISC",
   "dependencies": {
     "babel-polyfill": "^6.26.0",
+    "bootstrap": "^4.5.2",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "bootstrap": "^4.5.2",
+    "helmet": "^4.1.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },
