@@ -9,7 +9,7 @@ const path = require("path");
 const cors = require('cors');
 
 //Constants
-const {PORT,COOKIE_NAME,SESS_SECRET} = require('./config/config');
+const {PORT,IS_PROD,COOKIE_NAME,SESS_SECRET} = require('./config/config');
 const { MongoURI } = require("./config/database");
 
 const MAX_AGE = 1000 * 60 * 60 * 3; // Three hours
@@ -64,7 +64,7 @@ app.use(
     cookie: {
       maxAge: MAX_AGE,
       sameSite: false,
-      secure: true
+      secure: IS_PROD
     }
   })
 );
@@ -78,7 +78,9 @@ app.get("/api/getUsername", (req, res) =>
   res.send({ username: os.userInfo().username })
 );
 
-app.get("/api/users", (req, res) => res.send("Hello Darkness My Old Friend!!"));
+// app.get("/api/users", (req, res) => res.send("Hello Darkness My Old Friend!!"));
+app.use("/api/users", require("./routes/users"));
+
 
 app.use("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../../dist", "index.html"));

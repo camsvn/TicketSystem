@@ -18,6 +18,10 @@
     line-height: 2.1rem;
   }
   
+  .login-alert{
+    text-align: center;
+  }
+
   .login-form-body{
     margin-top: 1rem;
     padding: 1.25rem;
@@ -38,16 +42,9 @@
     font-size: 0.9rem;
     line-height: 1.25rem;
     width: 100%;
-    background: var(--main-primary-green);
-    border-color: var(--main-primary-green);
     border-radius: 5px;
   }
-  
-  .login-form-body button:hover{
-    background: var(--main-secondary-green);
-    border-color: var(--main-secondary-green);
-  }
-  
+    
   .login-form-container p {
     text-align: center;
     margin: 1rem 0;
