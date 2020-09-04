@@ -65,7 +65,7 @@ app.use(
     cookie: {
       maxAge: MAX_AGE,
       sameSite: false,
-      secure: true
+      secure: IS_PROD
     }
   })
 );
