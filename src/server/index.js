@@ -58,6 +58,7 @@ app.use(
   session({
     name: COOKIE_NAME,
     secret: SESS_SECRET,
+    proxy: true,
     resave: true,
     saveUninitialized: false,
     store: mongoDBstore,
