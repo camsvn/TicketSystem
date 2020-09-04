@@ -1,27 +1,18 @@
-import React, { Component } from "react";
-import "./app.css";
-import ReactImage from "./react.png";
+import React from "react";
+import { BrowserRouter, Route } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './app.css';
+import Main from "./screens/App";
+import Login from "./screens/Login";
+import Signup from "./screens/Signup";
 
-export default class App extends Component {
-  state = { username: null };
 
-  componentDidMount() {
-    fetch("/api/getUsername")
-      .then((res) => res.json())
-      .then((user) => this.setState({ username: user.username }));
-  }
-
-  render() {
-    const { username } = this.state;
-    return (
-      <div>
-        {username ? (
-          <h1>{`Hello ${username}`}</h1>
-        ) : (
-          <h1>Loading.. please wait!</h1>
-        )}
-        <img src={ReactImage} alt="react" />
-      </div>
-    );
-  }
-}
+export default function App (){
+  return(
+    <BrowserRouter>
+      <Route exact path="/" component={Main} />
+      <Route exact path="/login" component={Login} />
+      <Route exact path="/signup" component={Signup} />
+    </BrowserRouter>    
+  )
+} 
