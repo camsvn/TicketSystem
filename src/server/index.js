@@ -5,6 +5,7 @@ const MongoDBStore = require("connect-mongodb-session")(session);
 const morgan = require("morgan");
 const helmet = require('helmet');
 const os = require("os");
+const path = require("path");
 const cors = require('cors');
 
 //Constants
@@ -78,6 +79,10 @@ app.get("/api/getUsername", (req, res) =>
 );
 
 app.get("/api/users", (req, res) => res.send("Hello Darkness My Old Friend!!"));
+
+app.use("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../../dist", "index.html"));
+});
 
 app.listen(PORT || 8080, () =>
   console.log(`Listening on http://localhost:${PORT || 8080}`)
