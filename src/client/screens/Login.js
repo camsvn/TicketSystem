@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import {Container, Row, Form, Button, Alert, Spinner} from 'react-bootstrap';
-import { Redirect, Link } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import '../css/login.css'
 
 export default function App(props){
@@ -25,8 +25,9 @@ export default function App(props){
     // console.log(res);
     setStatusMsg({code:res.status});
     setLoading(false);
-      props.history.push('/');
-    console.log("Success")
+    props.handleAuthentication(true,res.data);    
+      props.history.push("/");
+    // console.log("Success")
   })
   .catch((err)=>{
     setLoading(false);
@@ -44,6 +45,9 @@ export default function App(props){
     setPassword('');
     setStatusMsg({});
   }
+
+  props.isAuthenticated && props.history.push('/')
+  
     return(
       <Container>
         <Row className='logo justify-content-center'>
@@ -52,8 +56,7 @@ export default function App(props){
         <Row>
           <Container className="login-form-container">
             <Form onSubmit={(e) => handleSignInClick(e)}>
-              <h1 className="login-form-title">Sign in to SOTsys</h1>
-              
+              <h1 className="login-form-title">Sign in to SOTsys </h1>              
               <div className="login-form-body">
                 {statusMsg.msg? (<Alert variant='danger' className='login-alert'>{statusMsg.msg}</Alert>):null}
                 <Form.Group controlId="formBasicEmail">

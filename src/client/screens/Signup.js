@@ -49,6 +49,8 @@ export default function App(props){
     setDepartment('Department 1');
     setStatusMsg({});
   }
+
+  props.isAuthenticated && props.history.push('/')
     return(
       <Container>
         <Row className='logo justify-content-center'>
