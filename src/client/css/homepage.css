@@ -1,0 +1,29 @@
+.bg-dark {
+    background-color: var(--main-secondary-color)!important
+}
+
+.nav-link{
+    font-weight: 600;
+    color: var(--main-bg-color)!important;
+}
+
+.navbar-toggler{
+    height: 35px;
+    padding: 2px 12px ;
+}
+
+.nav-link:hover{
+    color: #999!important
+}
+
+.welcome-user{
+    color: var(--main-bg-color);
+    font-size: 1rem;
+    display: block;
+    margin: auto 0.2rem 0.5rem 0;
+}
+
+.home {
+    text-align: center;
+    /* border: 1px solid red; */
+}

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
 import {Container, Row, Form, Button, Alert, Spinner} from 'react-bootstrap';
-import { Redirect } from "react-router-dom";
 import '../css/login.css'
 
 export default function App(props){
