@@ -1,0 +1,40 @@
+.title{
+    /* display: inline-block; */
+    font-weight: 600;
+    font-size: 1rem;
+    margin:0;
+}
+
+.card>hr{
+    margin: 0;
+}
+
+.octicon{    
+    fill: #28a745;
+}
+
+.issueicon{
+    flex: 0 0 16px;
+    padding-right: 0;
+}
+
+.issueMsg{
+    padding:0 1rem 0 2rem;
+    margin: 0.5rem 0;
+}
+
+.actionBtn{    
+    font-size: 0.9rem;
+    width: 125px;
+}
+
+.actionBtnContainer{
+    text-align: center;
+}
+
+@media only screen and (min-width: 576px) {
+.actionBtnContainer{
+    text-align: right;
+    margin-right: 1rem;
+}
+}

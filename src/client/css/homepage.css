@@ -16,14 +16,67 @@
     color: #999!important
 }
 
+.notification{
+    cursor: pointer;
+}
+
+.badge-notify{
+    background: red;
+    position: relative;
+    top: -8px;
+    left: -27px;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    z-index: 999;
+}
+
 .welcome-user{
     color: var(--main-bg-color);
     font-size: 1rem;
-    display: block;
+    display: inline-block;
     margin: auto 0.2rem 0.5rem 0;
 }
 
 .home {
-    text-align: center;
+    /* text-align: center; */
     /* border: 1px solid red; */
+    /* background: black; */
+    padding-right: 20px;
+    padding-left: 20px;
 }
+
+.home h2{
+    padding-top: 1.5rem;
+    font-weight: 600;
+    font-size: 1.75rem;
+}
+
+hr{
+    margin: 0.5rem 0;
+}
+
+.form-body{
+    margin-top: 1rem;
+    padding: 1.25rem;
+    border: 1px solid #CCC;
+    border-radius: 5px;
+    font-weight: 600;
+    line-height: 1.25rem;
+  }
+  
+  .form-body input, .form-body select, option{
+    font-weight: 400;
+    font-size: 0.9rem; 
+    line-height: 1.25rem;
+  }
+  
+  .form-body button{
+    font-weight: 500;
+    font-size: 0.9rem;
+    line-height: 1.25rem;
+    width: 100%;
+    border-radius: 5px;
+  }
+
+  

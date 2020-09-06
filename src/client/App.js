@@ -6,10 +6,13 @@ import './app.css';
 import Main from "./screens/Homepage";
 import Login from "./screens/Login";
 import Signup from "./screens/Signup";
+import Pending from './screens/Pending';
+import Navbar from './components/Navbar';
 
 export default function App (){
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
+  const [pathname, setPathname] = useState(false);
 
   useEffect(() => {
     axios.get('/api/users/authchecker')
@@ -23,11 +26,17 @@ export default function App (){
     })
   }, [])
 
+  const pathnames= ['/pending','/approved','/rejected']
+  useEffect(()=>{
+    (pathnames.includes(window.location.pathname))? setPathname(true) : setPathname(false)
+  })
+
   const handleAuthentication = (isAuthenticated,data) =>{
     setUser(data);
     setIsAuthenticated(isAuthenticated);
   }
-  
+
+    
   return(
     <BrowserRouter>
       <Switch>        
@@ -48,13 +57,13 @@ export default function App (){
           path="/signup" 
           render={props => (<Signup {...props} isAuthenticated={isAuthenticated} user={user} />)}
         />        
-        <Route
+        <Route       
           path="/"
           render={props => (
-            <Main {...props} isAuthenticated={isAuthenticated} user={user} handleAuthentication={handleAuthentication} />            
+            <Main {...props} isAuthenticated={isAuthenticated} user={user} handleAuthentication={handleAuthentication} pathname={pathname} />            
           )}
         />     
       </Switch>
-    </BrowserRouter>    
+    </BrowserRouter> 
   )
 } 

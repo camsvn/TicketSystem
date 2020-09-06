@@ -50,7 +50,7 @@ export default function App(props){
     return(
       <Container>
         <Row className='logo justify-content-center'>
-          <img src={require("../assets/logo-64.png")} alt="Logo" />
+          <a href='/'><img src={require("../assets/logo-light.svg")} alt="Logo" /></a>
         </Row>
         <Row>
           <Container className="login-form-container">
