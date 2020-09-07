@@ -81,6 +81,7 @@ app.get("/api/getUsername", (req, res) =>
 
 // app.get("/api/users", (req, res) => res.send("Hello Darkness My Old Friend!!"));
 app.use("/api/users", require("./routes/users"));
+app.use("/api/tickets", require("./routes/tickets"));
 
 
 app.use("*", (req, res) => {

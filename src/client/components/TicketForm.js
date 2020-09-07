@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from "react";
 import {Row,Container, Image, Button, Form, Alert,Col} from 'react-bootstrap';
 
-export default function App () {     
+export default function App (props) {     
     return (
-      <Form>             
+      <Form>              
         <div className="form-body">
           <Alert variant='danger' className='login-alert'>I am the Danger!</Alert>
 

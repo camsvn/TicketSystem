@@ -6,64 +6,65 @@ import './app.css';
 import Main from "./screens/Homepage";
 import Login from "./screens/Login";
 import Signup from "./screens/Signup";
-import Pending from './screens/Pending';
-import Navbar from './components/Navbar';
+import AuthContextProvider from './contexts/AuthContext';
 
 export default function App (){
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [user, setUser] = useState(null);
   const [pathname, setPathname] = useState(false);
-
-  useEffect(() => {
-    axios.get('/api/users/authchecker')
-    .then((res)=> {
-      setUser(res.data)
-      setIsAuthenticated(true)
-    })
-    .catch((err)=>{
-      setUser(null)
-      setIsAuthenticated(false)
-    })
-  }, [])
+  console.log("At Root");
 
   const pathnames= ['/pending','/approved','/rejected']
   useEffect(()=>{
     (pathnames.includes(window.location.pathname))? setPathname(true) : setPathname(false)
   })
 
-  const handleAuthentication = (isAuthenticated,data) =>{
-    setUser(data);
-    setIsAuthenticated(isAuthenticated);
-  }
+  // const handleAuthentication = (isAuthenticated,data) =>{
+  //   setUser(data);
+  //   setIsAuthenticated(isAuthenticated);
+  // }
 
+  // console.log("App Page", user)
     
   return(
     <BrowserRouter>
-      <Switch>        
-        <Route
-          exact
-          path="/login" 
-          render={props => (
-            <Login
-              {...props}               
-              isAuthenticated={isAuthenticated}
-              user={user}
-              handleAuthentication={handleAuthentication}
-            />
+      <AuthContextProvider>
+        <Switch>                 
+          <Route
+            exact
+            path="/login" 
+            render={props => (
+              <Login
+                {...props}               
+                // isAuthenticated={isAuthenticated}
+                // user={user}
+                // handleAuthentication={handleAuthentication}
+              />
+            )}
+          />
+          <Route
+            exact
+            path="/signup" 
+            render={props => (
+              <Signup
+                {...props} 
+                // isAuthenticated={isAuthenticated} 
+                // user={user}
+              />
 )}
-        />
-        <Route
-          exact
-          path="/signup" 
-          render={props => (<Signup {...props} isAuthenticated={isAuthenticated} user={user} />)}
-        />        
-        <Route       
-          path="/"
-          render={props => (
-            <Main {...props} isAuthenticated={isAuthenticated} user={user} handleAuthentication={handleAuthentication} pathname={pathname} />            
+          />
+          <Route       
+            path="/"
+            render={props => (
+              <Main
+                {...props} 
+                // isAuthenticated={isAuthenticated} 
+                // user={user} 
+                // handleAuthentication={handleAuthentication} 
+                pathname={pathname} 
+              />            
           )}
-        />     
-      </Switch>
+          />     
+        </Switch>
+      </AuthContextProvider>
     </BrowserRouter> 
   )
 } 

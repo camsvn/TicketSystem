@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
 import {Container, Row, Form, Button, Alert, Spinner} from 'react-bootstrap';
+import {AuthContext} from '../contexts/AuthContext';
 
 export default function App(props){
+  const {isAuthenticated, handleAuthentication} = useContext(AuthContext);
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -41,16 +44,17 @@ export default function App(props){
   const handleRegisterClick = (e) => {
     e.preventDefault();
     setLoading(true); 
-    // console.log("Email: ", email, " | Password: ",password, " | Name: ",name, " | Department: ",department)
     handleRegister(name, department, email, password);
-    setName('');
-    setEmail('');
-    setPassword('');
-    setDepartment('Department 1');
-    setStatusMsg({});
+    // setName('');
+    // setEmail('');
+    // setPassword('');
+    // setDepartment('Department 1');
+    // setStatusMsg({});
   }
 
-  props.isAuthenticated && props.history.push('/')
+  // props.user && props.user.length>0 && props.history.push('/')
+  isAuthenticated && props.history.push('/')
+
     return(
       <Container>
         <Row className='logo justify-content-center'>
@@ -86,7 +90,7 @@ export default function App(props){
                   <Form.Label>Password</Form.Label>
                   <Form.Control type="password" value={password} onChange={e=> setPassword(e.target.value)} />
                 </Form.Group>
-                <Button variant="success" type="submit">
+                <Button variant="success" disabled={loading} type="submit">
                   {loading? (
                     <span>
                       Registering..

@@ -44,10 +44,10 @@ exports.registerUser = (req, res) => {
             // Save user
             newUser
               .save()
-              .then(
+              .then(data =>
                 res.json("Successfully Registered")
               )
-              .catch((err) => console.log(err));
+              .catch(err => res.status(400).send(err));
           })
         );
       });

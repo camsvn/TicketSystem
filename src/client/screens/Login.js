@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState , useContext} from "react";
 import axios from "axios";
 import {Container, Row, Form, Button, Alert, Spinner} from 'react-bootstrap';
+import {AuthContext} from '../contexts/AuthContext';
 import '../css/login.css'
 
 export default function App(props){
+  const {isAuthenticated, handleAuthentication} = useContext(AuthContext);
+  console.log("At Login");
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [statusMsg, setStatusMsg] = useState({});
@@ -24,8 +27,8 @@ export default function App(props){
     // console.log(res);
     setStatusMsg({code:res.status});
     setLoading(false);
-    props.handleAuthentication(true,res.data);    
-      props.history.push("/");
+    handleAuthentication(true,res.data);
+    isAuthenticated && props.history.push("/");
     // console.log("Success")
   })
   .catch((err)=>{
@@ -38,14 +41,17 @@ export default function App(props){
   const handleSignInClick = (e) => {
     e.preventDefault();
     setLoading(true);
-    // console.log("Email: ", email, " | Password: ",password)
     handleSignIn(email,password);
-    setEmail('');
-    setPassword('');
-    setStatusMsg({});
+    // setEmail('');
+    // setPassword('');
+    // setStatusMsg({});
   }
 
-  props.isAuthenticated && props.history.push('/')
+  // props.user && props.user.length>0 && props.history.push('/')
+
+  isAuthenticated && props.history.push('/')
+
+    // console.log("Login Page", props.user && props.user.length)
   
     return(
       <Container>
@@ -67,7 +73,7 @@ export default function App(props){
                   <Form.Label>Password</Form.Label>
                   <Form.Control type="password" value={password} onChange={e=> setPassword(e.target.value)} />
                 </Form.Group>
-                <Button variant="success" type="submit">
+                <Button variant="success" disabled={loading} type="submit">
                   {loading? (
                     <span>
                       Signing in..

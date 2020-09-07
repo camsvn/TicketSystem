@@ -1,24 +1,15 @@
-import React, {useState}  from 'react';
+import React, {useState, useContext}  from 'react';
 import axios from 'axios'
-import {Container, Row, Form, Button, Alert, Navbar, Nav, Modal} from 'react-bootstrap';
+import { Button, Navbar, Nav, Modal} from 'react-bootstrap';
+import {AuthContext} from '../contexts/AuthContext'
 
 export default function App (props) {
+  const {handleLogout, user} = useContext(AuthContext)
     const [showModal, setShowModal] = useState(false)
 
     const handleClose = () => setShowModal(false);
     const handleShow = () => setShowModal(true);
-    
-    const handleLogout = () =>{        
-        axios.delete('/api/users/logout')
-        .then((res)=> {
-          if(res.status===200)
-          props.handleAuthentication(false,null);           
-        })
-        .catch((err)=>{
-          console.log(err)
-        })
-      }
-    
+        
     return(
       <>
         <Navbar bg="dark" variant="dark" expand='md'>
@@ -40,17 +31,17 @@ export default function App (props) {
             </Nav>
             <img src={require('../assets/bell-dark.svg')} alt='Notification' className="notification mr-3 d-block pb-2 pb-md-0 " onClick={handleShow} />          
             <span className="badge-notify" />
-            {props.user ? 
+            {user ? 
           (
             <>
               <p className="mr-3 welcome-user">
                 {`Hi, ${
-                    props.user.name.substr(0,props.user.name.indexOf(' ')) !== '' ? 
-                    props.user.name.substr(0,props.user.name.indexOf(' ')):
-                    props.user.name.substr(props.user.name.indexOf(' ')+1)
+                    user.name.substr(0,user.name.indexOf(' ')) !== '' ? 
+                    user.name.substr(0,user.name.indexOf(' ')):
+                    user.name.substr(user.name.indexOf(' ')+1)
                     }`}
               </p>
-              <Button href="/" variant="outline-light" onClick={()=>handleLogout()}>Sign out</Button>
+              <Button href="/" variant="outline-light" onClick={handleLogout}>Sign out</Button>
             </>
           ):
           (<Button href="/login" variant="outline-light">Sign in</Button>)} 
