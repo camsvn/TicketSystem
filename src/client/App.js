@@ -9,20 +9,12 @@ import Signup from "./screens/Signup";
 import AuthContextProvider from './contexts/AuthContext';
 
 export default function App (){
-  const [pathname, setPathname] = useState(false);
-  console.log("At Root");
-
   const pathnames= ['/pending','/approved','/rejected']
+  const [pathname, setPathname] = useState(false);
+
   useEffect(()=>{
     (pathnames.includes(window.location.pathname))? setPathname(true) : setPathname(false)
   })
-
-  // const handleAuthentication = (isAuthenticated,data) =>{
-  //   setUser(data);
-  //   setIsAuthenticated(isAuthenticated);
-  // }
-
-  // console.log("App Page", user)
     
   return(
     <BrowserRouter>
@@ -32,35 +24,20 @@ export default function App (){
             exact
             path="/login" 
             render={props => (
-              <Login
-                {...props}               
-                // isAuthenticated={isAuthenticated}
-                // user={user}
-                // handleAuthentication={handleAuthentication}
-              />
+              <Login {...props} />
             )}
           />
           <Route
             exact
             path="/signup" 
             render={props => (
-              <Signup
-                {...props} 
-                // isAuthenticated={isAuthenticated} 
-                // user={user}
-              />
+              <Signup {...props} />
 )}
           />
           <Route       
             path="/"
             render={props => (
-              <Main
-                {...props} 
-                // isAuthenticated={isAuthenticated} 
-                // user={user} 
-                // handleAuthentication={handleAuthentication} 
-                pathname={pathname} 
-              />            
+              <Main {...props} />            
           )}
           />     
         </Switch>

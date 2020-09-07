@@ -12,8 +12,7 @@ import {AuthContext} from '../contexts/AuthContext';
 import '../css/homepage.css';
 
 export default function App (props) {
-  const {isAuthenticated, user} = useContext(AuthContext);
-  console.log("At Home");  
+  const {isAuthenticated} = useContext(AuthContext);
   return (
     isAuthenticated ? (
       <>  
