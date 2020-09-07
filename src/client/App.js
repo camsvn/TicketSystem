@@ -37,7 +37,7 @@ export default function App (){
           <Route       
             path="/"
             render={props => (
-              <Main {...props} />            
+              <Main {...props} pathname={pathname} />            
           )}
           />     
         </Switch>
