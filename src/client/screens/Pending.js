@@ -1,24 +1,76 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios'
 import {Container,Row,Col,Card, Button} from 'react-bootstrap';
 
 export default function Pending(){
+  const [data, setData] = useState([]);
+  
+  useEffect(() => {
+    axios.get('api/tickets/pending')
+    .then(res=> {
+      res.data.length && setData(res.data)
+    })
+    .catch(err =>{})
+  },[])
+
+  const handleDelete = (id) => {
+    console.log("Delete",id);
+    axios.put('api/tickets/delete', {id})
+    .then(res=>{
+      // console.log(res)
+      if(res.status===200){
+        const newData = data.filter(item => {
+          if(item._id !== id){
+            // console.log(item._id, "Filtered")
+            return item
+          }
+        })
+        setData(newData)
+      }  
+    })
+    .catch(err=> console.log(err))
+  }
+
+  const handleAccept = (id) => {
+    console.log("Accept",id);
+    axios.put('api/tickets/accept', {id})
+    .then(res=>{
+      // console.log(res)
+      if(res.status===200){
+        const newData = data.filter(item => {
+          if(item._id !== id){
+            // console.log(item._id, "Filtered")
+            return item
+          }
+        })
+        setData(newData)
+      }  
+    })
+    .catch(err=> console.log(err))
+  }
     return(
       <Container className="home"> 
         <h2>👀Review Issues</h2>
         <hr />
         <p>Issues pending to review</p>
-        
-        <TestStyle title="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />            
-        <TestStyle title="Lorem ipsum dolor sit  incididunt ut labore et dolore magna aliqua." />
-        <TestStyle title="Lorem ipsum dolor sit amet, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
-        <TestStyle title="Lorem ipsum dolor sit  incididunt ut labore et dolore magna aliqua." />
-        <TestStyle title="Lorem ipsum dolor sit amet, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
-        
+        {
+            data.length ? data.map((request) => (
+              <CardBody 
+                key={request._id} 
+                delete={()=>handleDelete(request._id)} 
+                accept={()=>handleAccept(request._id)} 
+                title={request.subject}
+                message={request.message}
+                from={request.from.name}
+                department={request.from.department}
+              />
+            )): <p className='text-center pt-3'>No Rejected Issues</p>
+          }
       </Container>
     )
 }
 
-const TestStyle = (props) =>{
+const CardBody = (props) =>{  
   return(
     <Card className="mb-3 ">
       <div className='p-2 '>
@@ -35,15 +87,13 @@ const TestStyle = (props) =>{
           </Col>   
         </Row>
         <p className="issueMsg">
-          Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore 
-          eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, 
-          sunt in culpa qui officia deserunt mollit anim id est laborum.
+          {props.message}
         </p>       
-        <cite className="blockquote-footer pl-3">Amal Salvin</cite>
+        <cite className="blockquote-footer pl-3">{`${props.from} | ${props.department}`}</cite>
         <hr />
         <div className="actionBtnContainer">
-          <Button className="actionBtn mr-3" variant="danger">Delete</Button>
-          <Button variant="success" className="actionBtn ">Accept</Button>
+          <Button className="actionBtn mr-3" variant="danger" onClick={props.delete}>Delete</Button>
+          <Button variant="success" className="actionBtn " onClick={props.accept}>Accept</Button>
         </div>
       </div>
     </Card>

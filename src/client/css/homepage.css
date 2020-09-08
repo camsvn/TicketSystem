@@ -71,12 +71,16 @@ hr{
     line-height: 1.25rem;
   }
   
-  .form-body button{
+  .form-body .submit{
     font-weight: 500;
     font-size: 0.9rem;
     line-height: 1.25rem;
     width: 100%;
     border-radius: 5px;
   }
+
+  .alert-dismissible .close{
+    padding: 0.61rem 1.25rem !important;
+}
 
   
