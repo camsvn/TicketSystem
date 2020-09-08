@@ -64,7 +64,7 @@ export default function Pending(){
                 from={request.from.name}
                 department={request.from.department}
               />
-            )): <p className='text-center pt-3'>No Rejected Issues</p>
+            )): <p className='text-center pt-3'>No Pending Issues</p>
           }
       </Container>
     )

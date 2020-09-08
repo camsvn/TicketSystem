@@ -63,7 +63,7 @@ export default function App (props) {
           setShowAlert(true)
         }, 500);      
       }
-      console.log(res);
+      // console.log(res);
     })
     .catch((err)=>{
       setLoading(false);
